@@ -1,0 +1,42 @@
+#!/usr/bin/env python
+
+import re
+import subprocess
+
+import psutil
+import click
+from python_toolbox import caching
+
+@caching.cache()
+def get_cmdline(process):
+    try:
+        return process.cmdline()
+    except psutil.AccessDenied:
+        return ('',)
+
+@click.command()
+@click.argument('search_str')
+@click.option('-k', '--kill', is_flag=True, default=False, help='Should kill the process')
+@click.option('-r', '--restart', is_flag=True, default=False, help='Should restart the process')
+def ps(search_str, kill, restart):
+    python_processes = [process for process in psutil.process_iter() if re.match(r'^python[-.0-9]*w?(:?.exe)?$', process.name())]
+    processes = []
+
+    for process in python_processes:
+        if len(get_cmdline(process)) > 1 and search_str in get_cmdline(process)[1].lower():
+            processes.append(process)
+
+    for process in processes:
+        cmdline = get_cmdline(process)
+        click.echo('found process:')
+        click.echo(' '.join(cmdline))
+        if kill or restart:
+            click.echo('killing pid={0}'.format(process.pid))
+            process.kill()
+        if restart:
+            new = subprocess.Popen(cmdline)
+            click.echo('started new process pid={0}'.format(new.pid))
+
+
+if __name__ == '__main__':
+    ps()
