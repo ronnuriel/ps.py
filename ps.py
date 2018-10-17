@@ -21,7 +21,7 @@ def get_cwd(process):
     try:
         return process.cwd()
     except psutil.AccessDenied:
-        return ('',)
+        return None
 
 
 @click.command()
