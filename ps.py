@@ -39,11 +39,11 @@ def ps(search_str, kill, restart):
         cwd = get_cwd(process)
         click.echo(' '.join(map(shlex.quote, cmdline)))
         if kill or restart:
-            click.echo('killing pid={0}'.format(process.pid))
+            click.echo('Killing pid={0}'.format(process.pid), err=True)
             process.kill()
         if restart:
             new = subprocess.Popen(cmdline, cwd=cwd)
-            click.echo('started new process pid={0}'.format(new.pid))
+            click.echo('Started new process pid={0}'.format(new.pid), err=True)
 
 
 if __name__ == '__main__':
