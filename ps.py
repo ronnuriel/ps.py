@@ -2,6 +2,7 @@
 
 import re
 import subprocess
+import shlex
 
 import psutil
 import click
@@ -37,7 +38,7 @@ def ps(search_str, kill, restart):
         cmdline = get_cmdline(process)
         cwd = get_cwd(process)
         click.echo('found process:')
-        click.echo(' '.join(cmdline))
+        click.echo(' '.join(map(shlex.quote, cmdline)))
         if kill or restart:
             click.echo('killing pid={0}'.format(process.pid))
             process.kill()
