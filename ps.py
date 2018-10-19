@@ -27,8 +27,8 @@ def get_cwd(process):
 
 @click.command()
 @click.argument('search_str', default='')
-@click.option('-k', '--kill', is_flag=True, default=False, help='Should kill the process')
-@click.option('-r', '--restart', is_flag=True, default=False, help='Should restart the process')
+@click.option('-k', '--kill', is_flag=True, default=False, help='Kill the process')
+@click.option('-r', '--restart', is_flag=True, default=False, help='Restart the process')
 def ps(search_str, kill, restart):
     python_processes = [process for process in psutil.process_iter() if re.match(r'^python[-.0-9]*w?(:?.exe)?$', process.name())]
     processes = [process for process in python_processes
