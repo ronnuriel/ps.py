@@ -25,7 +25,7 @@ def get_cwd(process):
 
 
 @click.command()
-@click.argument('search_str')
+@click.argument('search_str', default='')
 @click.option('-k', '--kill', is_flag=True, default=False, help='Should kill the process')
 @click.option('-r', '--restart', is_flag=True, default=False, help='Should restart the process')
 def ps(search_str, kill, restart):
