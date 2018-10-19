@@ -37,7 +37,6 @@ def ps(search_str, kill, restart):
     for process in processes:
         cmdline = get_cmdline(process)
         cwd = get_cwd(process)
-        click.echo('found process:')
         click.echo(' '.join(map(shlex.quote, cmdline)))
         if kill or restart:
             click.echo('killing pid={0}'.format(process.pid))
