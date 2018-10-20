@@ -12,4 +12,8 @@ Then run:
 pip install -r requirements.txt
 
 usage:
-ps 
+ps.py --help
+ps.py (shows all running python processes)
+ps.py <process_name> --kill (kills running processes with the given name)
+ps.py <process_name> --restart (restarts all rinning processes with the given name)
+in case that name is not provided, the cli will perform the action on all running Python processes
