@@ -17,3 +17,23 @@ ps.py (shows all running python processes)</br>
 ps.py <process_name> --kill (kills running processes with the given name)</br>
 ps.py <process_name> --restart (restarts all rinning processes with the given name)</br>
 in case that name is not provided, the cli will perform the action on all running Python processes</br>
+
+# How to install:
+```bash
+python3 -m venv venv
+source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+pip install -r requirements.txt
+
+pip install -e .
+```
+
+# Troubleshooting:
+```bash
+python3 -m pip install --upgrade pip
+pip install -e .
+```
+
+# How to run:
+```bash
+newps --help
+```
